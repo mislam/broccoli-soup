@@ -71,7 +71,7 @@ function injectLiveReload(inputTree, options) {
   var tree = replace(inputTree, {
     files: options.files,
     pattern: {
-      match: RegExp('\\s*<!-- \\[livereload\\] -->'),
+      match: new RegExp('\\s*<!-- \\[livereload\\] -->'),
       replacement: isProduction ? '' : '<script type="text/javascript">' + liveReloadScript + '</script>'
     }
   });
@@ -82,12 +82,12 @@ function injectLiveReload(inputTree, options) {
 function javascript() {
   var vendor = concatFiles(mergeTrees([options.trees.bower, options.trees.vendor]), {
     inputFiles: vendorScripts,
-    outputFile: '/assets/js/vendor.js',
+    outputFile: '/js/vendor.js',
     separator: EOL + ';'
   });
   var app = concatFiles('app', {
     inputFiles: ['**/*.js'],
-    outputFile: '/assets/js/app.js'
+    outputFile: '/js/app.js'
   });
   var tree = mergeTrees([vendor, app]);
   if (isProduction) {
@@ -99,14 +99,14 @@ function javascript() {
 function styles() {
   var vendor = concatFiles(mergeTrees([options.trees.bower, options.trees.vendor]), {
     inputFiles: vendorStyles,
-    outputFile: '/assets/css/vendor.css',
+    outputFile: '/css/vendor.css',
     separator: EOL + ';'
   });
   if (isProduction) {
     vendor = cleanCSS(vendor);
   }
   var sassOptions = isProduction ? { outputStyle: 'compressed' } : {};
-  var app = compileSass(['app/styles'], 'app.scss', 'assets/css/app.css', sassOptions);
+  var app = compileSass(['app/styles'], 'app.scss', 'css/app.css', sassOptions);
   return mergeTrees([vendor, app]);
 }
 
@@ -132,7 +132,7 @@ var tree = mergeTrees([
 if (isProduction) {
   tree = assetRev(tree, {
     extensions: ['js', 'css', 'png', 'jpg', 'gif'],
-    exclude: ['assets/fonts'],
+    exclude: ['fonts', 'apple-touch-icon.png', 'tile.png', 'tile-wide.png'],
     replaceExtensions: ['html', 'js', 'css']
   });
 }
