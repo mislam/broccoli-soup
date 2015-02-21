@@ -9,6 +9,7 @@ var EOL = require('os').EOL;
 var mergeTrees = require('broccoli-merge-trees');
 var concatFilesWithSourcemaps = require('broccoli-sourcemap-concat');
 var compileSass = require('broccoli-sass');
+var autoprefixer = require('broccoli-autoprefixer');
 var unwatchedTree = require('broccoli-unwatched-tree');
 var assetRev = require('broccoli-asset-rev');
 var replace = require('broccoli-string-replace');
@@ -107,6 +108,7 @@ function styles() {
   }
   var sassOptions = isProduction ? { outputStyle: 'compressed' } : {};
   var app = compileSass(['app/styles'], 'app.scss', 'css/app.css', sassOptions);
+  app = autoprefixer(app);
   return mergeTrees([vendor, app]);
 }
 
