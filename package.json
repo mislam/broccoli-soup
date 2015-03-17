@@ -13,7 +13,7 @@
     "broccoli-env": "^0.0.1",
     "broccoli-funnel": "^0.2.0",
     "broccoli-merge-trees": "^0.2.1",
-    "broccoli-sass": "^0.3.3",
+    "broccoli-sass": "^0.6.0",
     "broccoli-sourcemap-concat": "^0.2.7",
     "broccoli-string-replace": "0.0.2",
     "broccoli-uglify-js": "^0.1.3",
